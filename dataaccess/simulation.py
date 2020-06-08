@@ -4,13 +4,6 @@ import torch
 from torch.autograd import Variable
 
 
-def load_config():
-    with open('../arguments/arguments.json') as f:
-        arguments = json.load(f)
-
-    return arguments
-
-
 def load_data_set(data_path):
     with open(data_path, 'r') as f:
         data = json.load(f)
