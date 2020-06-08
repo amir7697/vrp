@@ -1,11 +1,24 @@
 import random
 import torch
+import argparse
 
 import dataaccess.simulation as data_access
 
 from model.vrp_model import VrpModel
 from model.vrp_model_supervisor import VrpModelSupervisor
 from dataaccess.data_processor import VrpDataProcessor
+from config.configs import SIMULATION_CONFIG, MODEL_CONFIG, OUTPUT_CONFIG, TRAIN_CONFIG
+
+
+def get_arguments(title):
+    parser = argparse.ArgumentParser(description=title)
+    parser.add_argument('--eval', action='store_true')
+
+    params = parser.parse_args()
+
+    params = dict(params.items() + SIMULATION_CONFIG.items() + MODEL_CONFIG.items() +
+                  OUTPUT_CONFIG.items() + TRAIN_CONFIG.items())
+    return params
 
 
 def create_model(args):
@@ -59,7 +72,7 @@ def evaluate(args):
 
 
 if __name__ == '__main__':
-    arguments = data_access.load_config()
+    arguments = get_arguments("vrp")
     arguments.cuda = not arguments.cpu and torch.cuda.is_available()
 
     if arguments.train:

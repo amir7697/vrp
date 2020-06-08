@@ -1,3 +1,4 @@
+from utils.data_utils import VrpManager, VrpNode
 
 
 class VrpDataParser:
